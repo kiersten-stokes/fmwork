@@ -179,7 +179,7 @@ def bench_combo_rep(
     inputs = generator.prompt(
         input_size,
         batch_size * args.batch_multiplier,
-        'np',
+        # 'np',
     )
 
     sampling_params = vllm.SamplingParams(
