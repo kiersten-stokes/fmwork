@@ -189,7 +189,7 @@ def bench_combo_rep(
     )
 
     kwargs = {
-        'prompt_token_ids' : inputs,
+        'prompts'          : inputs,
         'sampling_params'  : sampling_params,
         'use_tqdm'         : False,
     }
