@@ -188,14 +188,9 @@ def bench_combo_rep(
         **args.subs['sampling'],
     )
 
-    kwargs = {
-        'sampling_params'  : sampling_params,
-        'use_tqdm'         : False,
-    }
-
     t0 = fmwork.time_get()
 
-    outputs = engine.generate(inputs=inputs, **kwargs)
+    outputs = engine.generate(inputs=inputs, sampling_params=sampling_params, use_tqdm=False)
 
     if args.platform == 'cuda':
         torch.cuda.synchronize()
