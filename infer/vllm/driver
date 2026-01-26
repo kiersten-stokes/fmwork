@@ -211,7 +211,7 @@ def run(input_size, output_size, batch_size):
         input_batch = fmwork.input_generator(
             par.model_path,
             input_size, batch_size,
-            return_tensors='pt')
+            return_tensors='np')
 
     else:
 
