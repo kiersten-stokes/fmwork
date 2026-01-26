@@ -211,7 +211,7 @@ def run(input_size, output_size, batch_size):
         input_batch = fmwork.input_generator(
             par.model_path,
             input_size, batch_size,
-            return_tensors='np')
+            return_tensors='pt')
 
     else:
 
@@ -225,23 +225,17 @@ def run(input_size, output_size, batch_size):
         ignore_eos = par.ignore_eos
     )
 
-    kwargs = {
-        'prompt_token_ids' : input_batch,
-        'sampling_params'  : sampling_params,
-        'use_tqdm'         : False,
-    }
-
     fmwork.reset()
 
     for rep in range(par.reps):
         if not par.dataset_path:
-            kwargs['prompt_token_ids'] = fmwork.input_generator(
+            input_batch = fmwork.input_generator(
                 par.model_path,
                 input_size, batch_size,
                 return_tensors='np'
             )
         fmwork.t0()
-        outputs = var.llm.generate(**kwargs)
+        outputs = var.llm.generate(input_batch, sampling_params, use_tqdm=False)
         try:
             torch.cuda.synchronize()
         except:
