@@ -267,6 +267,7 @@ import torch
 
 from transformers import AutoTokenizer
 from transformers.tokenization_utils_base import BatchEncoding
+from vllm.inputs import TokensPrompt
 
 class RandomGenerator:
 
@@ -288,7 +289,10 @@ class RandomGenerator:
             for i in range(input_size):
                 tokens[b].append(random.choice(self.vocab))
 
-        if return_tensors == 'np': return tokens
+        if return_tensors == 'np':
+            for b in range(batch_size):
+                tokens[b] = TokensPrompt(prompt_token_ids=tokens[b])
+            return tokens
 
         input_batch = BatchEncoding({
             'input_ids' : torch.tensor(tokens),
