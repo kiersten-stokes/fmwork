@@ -2,8 +2,7 @@
 
 envs=()
 args=()
- seq=0
-
+seq=0
 while [[ ${#} -gt 0 ]]; do
     arg=${1}; case ${arg} in
         -m | --model ) shift; model=${1}     ;;
@@ -11,7 +10,13 @@ while [[ ${#} -gt 0 ]]; do
         -e | --env   ) shift; envs+=("${1}") ;;
              --multi ) shift; multi=${1}     ;;
              --seq   )        seq=1          ;;
-         *           )        args+=("${1}") ;;
+         *           )
+            if [[ "${1}" == {* ]]; then
+                args+=("'${1}'")
+            else
+                args+=("${1}")
+            fi
+            ;;
     esac; shift
 done
 

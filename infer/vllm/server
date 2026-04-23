@@ -7,7 +7,13 @@ while [[ ${#} -gt 0 ]]; do
     arg=${1}; case ${arg} in
         -m | --model ) shift; model=${1}     ;;
         -e | --env   ) shift; envs+=("${1}") ;;
-         *           )        args+=("${1}") ;;
+        *           )
+            if [[ "${1}" == {* ]]; then
+                args+=("'${1}'")
+            else
+                args+=("${1}")
+            fi
+            ;;
     esac; shift
 done
 
