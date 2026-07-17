@@ -13,7 +13,7 @@ while [[ ${#} -gt 0 ]]; do
             else
                 args+=("${1}")
             fi
-            ;;
+        ;;
     esac; shift
 done
 
